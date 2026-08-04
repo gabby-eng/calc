@@ -446,12 +446,12 @@ function updateItemInfoLink(itemSelect) {
 	var $link = $(itemSelect).siblings(".item-info-link");
 	if (!$link.length) return;
 	var itemName = $(itemSelect).val();
-	if (!itemName) {
+	var description = typeof getItemDescription === "function" ? getItemDescription(itemName) : null;
+	if (!description) {
 		$link.prop("hidden", true);
 		return;
 	}
-	var bulbapediaTitle = itemName.replace(/ /g, "_");
-	$link.attr("href", "https://bulbapedia.bulbagarden.net/wiki/" + encodeURIComponent(bulbapediaTitle) + "#Effect");
+	$link.attr("title", description);
 	$link.prop("hidden", false);
 }
 
