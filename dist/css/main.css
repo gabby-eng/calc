@@ -391,7 +391,7 @@ th {
 .info-selectors select {
     width: 12em;
 }
-.item-info-link {
+.item-info-link, .ability-info-link {
     display: inline-block;
     margin-left: 0.35em;
     font-size: 1.1em;

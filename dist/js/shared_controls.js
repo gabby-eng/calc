@@ -241,7 +241,22 @@ $(".ability").bind("keyup change", function () {
 		$(this).closest(".poke-info").find(".alliesFainted").hide();
 
 	}
+
+	updateAbilityInfoLink(this);
 });
+
+function updateAbilityInfoLink(abilitySelect) {
+	var $link = $(abilitySelect).siblings(".ability-info-link");
+	if (!$link.length) return;
+	var abilityName = $(abilitySelect).val();
+	var description = typeof getAbilityDescription === "function" ? getAbilityDescription(abilityName) : null;
+	if (!description) {
+		$link.prop("hidden", true);
+		return;
+	}
+	$link.attr("title", description);
+	$link.prop("hidden", false);
+}
 
 $("#p1 .ability").bind("keyup change", function () {
 	autosetWeather($(this).val(), 0);
@@ -1114,6 +1129,7 @@ $(".gen").change(function () {
 	$("select.move-selector").find("option").remove().end().append(moveOptions);
 	var abilityOptions = getSelectOptions(abilities, true);
 	$("select.ability").find("option").remove().end().append("<option value=\"\">(other)</option>" + abilityOptions);
+	$(".ability-info-link").prop("hidden", true);
 	var itemOptions = getSelectOptions(items, true);
 	$("select.item").find("option").remove().end().append("<option value=\"\">(none)</option>" + itemOptions);
 	$(".item-info-link").prop("hidden", true);
