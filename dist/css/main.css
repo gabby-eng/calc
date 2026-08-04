@@ -391,6 +391,13 @@ th {
 .info-selectors select {
     width: 12em;
 }
+.item-info-link {
+    display: inline-block;
+    margin-left: 0.35em;
+    text-decoration: none;
+    font-size: 1.1em;
+    vertical-align: middle;
+}
 select.toxic-counter {
     width: 5.5em;
 }

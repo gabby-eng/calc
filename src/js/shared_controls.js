@@ -439,7 +439,21 @@ $(".item").change(function () {
 	} else {
 		$metronomeControl.hide();
 	}
+	updateItemInfoLink(this);
 });
+
+function updateItemInfoLink(itemSelect) {
+	var $link = $(itemSelect).siblings(".item-info-link");
+	if (!$link.length) return;
+	var itemName = $(itemSelect).val();
+	if (!itemName) {
+		$link.prop("hidden", true);
+		return;
+	}
+	var bulbapediaTitle = itemName.replace(/ /g, "_");
+	$link.attr("href", "https://bulbapedia.bulbagarden.net/wiki/" + encodeURIComponent(bulbapediaTitle) + "#Effect");
+	$link.prop("hidden", false);
+}
 
 function smogonAnalysis(pokemonName) {
 	var generation = ["rb", "gs", "rs", "dp", "bw", "xy", "sm", "ss", "sv"][gen - 1];
@@ -1102,6 +1116,7 @@ $(".gen").change(function () {
 	$("select.ability").find("option").remove().end().append("<option value=\"\">(other)</option>" + abilityOptions);
 	var itemOptions = getSelectOptions(items, true);
 	$("select.item").find("option").remove().end().append("<option value=\"\">(none)</option>" + itemOptions);
+	$(".item-info-link").prop("hidden", true);
 
 	$(".set-selector").val(getFirstValidSetOption().id);
 	$(".set-selector").change();
