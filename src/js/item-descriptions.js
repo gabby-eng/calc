@@ -278,7 +278,7 @@ function describeCategory(name) {
 		return 'Has no effect in battle; used once outside of battle to teach its move to a compatible Pokémon.';
 	}
 	if (CONFUSE_HEAL_BERRIES[name]) {
-		return "Restores a quarter of the holder's max HP once it drops low, but confuses the holder if it dislikes " +
+		return "Restores a third of the holder's max HP (two-thirds with the Ripen Ability) once its HP drops to a quarter or below, but confuses the holder if it dislikes " +
 			CONFUSE_HEAL_BERRIES[name].split('-')[0] + '-flavored food, then is consumed.';
 	}
 	if (TYPE_RESIST_BERRIES[name]) {
@@ -313,6 +313,16 @@ function describeCategory(name) {
  */
 var GEN8_ITEM_OVERRIDES = {
 };
+
+// Confirmed via Bulbapedia: the Gen 3-6 pinch-heal/confuse berries (Aguav, Figy,
+// Iapapa, Mago, Wiki) restore 1/8 max HP in Gen 3-6 and 1/2 max HP in Gen 7, but
+// from Gen 8 onward restore 1/3 max HP (2/3 with the Ripen Ability) instead.
+for (var confuseHealBerryName in CONFUSE_HEAL_BERRIES) {
+	if (Object.prototype.hasOwnProperty.call(CONFUSE_HEAL_BERRIES, confuseHealBerryName)) {
+		GEN8_ITEM_OVERRIDES[confuseHealBerryName] = "Restores a third of the holder's max HP (two-thirds with the Ripen Ability) once its HP drops to a quarter or below, but confuses the holder if it dislikes " +
+			CONFUSE_HEAL_BERRIES[confuseHealBerryName].split('-')[0] + '-flavored food, then is consumed.';
+	}
+}
 
 function baseItemDescription(name) {
 	if (Object.prototype.hasOwnProperty.call(ITEM_DESCRIPTIONS, name)) {
