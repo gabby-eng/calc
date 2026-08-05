@@ -461,7 +461,7 @@ function updateItemInfoLink(itemSelect) {
 	var $link = $(itemSelect).siblings(".item-info-link");
 	if (!$link.length) return;
 	var itemName = $(itemSelect).val();
-	var description = typeof getItemDescription === "function" ? getItemDescription(itemName) : null;
+	var description = typeof getItemDescription === "function" ? getItemDescription(itemName, gen) : null;
 	if (!description) {
 		$link.prop("hidden", true);
 		return;

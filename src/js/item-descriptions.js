@@ -304,10 +304,32 @@ function describeCategory(name) {
 	return null;
 }
 
-function getItemDescription(name) {
-	if (!name) return null;
+/*
+ * Effects that genuinely worked differently in Generation VIII (Sword/Shield era)
+ * than they do in the most recent generation. Deliberately small: the "modern"
+ * item formulas have been stable since roughly Gen 4-6, so very few items that
+ * exist in both Gen 8 and the current generation actually changed in between.
+ * Add entries here as specific Gen 8 differences are confirmed.
+ */
+var GEN8_ITEM_OVERRIDES = {
+};
+
+function baseItemDescription(name) {
 	if (Object.prototype.hasOwnProperty.call(ITEM_DESCRIPTIONS, name)) {
 		return ITEM_DESCRIPTIONS[name];
 	}
 	return describeCategory(name);
+}
+
+function getItemDescription(name, gen) {
+	if (!name) return null;
+	if (gen === 8) {
+		if (Object.prototype.hasOwnProperty.call(GEN8_ITEM_OVERRIDES, name)) {
+			return GEN8_ITEM_OVERRIDES[name];
+		}
+		var description = baseItemDescription(name);
+		if (!description) return null;
+		return description + ' (most recent generation effect)';
+	}
+	return baseItemDescription(name);
 }
