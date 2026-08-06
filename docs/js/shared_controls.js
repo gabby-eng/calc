@@ -444,13 +444,11 @@ $(".move-selector").change(function () {
 		moveGroupObj.children(".stat-drops").hide();
 	}
 	moveGroupObj.children(".move-z").prop("checked", false);
-	updateMoveInfoLink(this);
 });
 
-function updateMoveInfoLink(moveSelect) {
-	var $link = $(moveSelect).siblings(".move-info-link");
+function updateMoveInfoLink(iconId, moveName) {
+	var $link = $("#" + iconId);
 	if (!$link.length) return;
-	var moveName = $(moveSelect).val();
 	var description = typeof getMoveDescription === "function" ? getMoveDescription(moveName) : null;
 	if (!description) {
 		$link.prop("hidden", true);

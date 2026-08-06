@@ -58,6 +58,7 @@ function performCalculations() {
 		});
 		$(resultLocations[0][i].move + " + label").text(p1.moves[i].name.replace("Hidden Power", "HP"));
 		$(resultLocations[0][i].damage).text(result.moveDesc(notation));
+		updateMoveInfoLink("moveInfoL" + (i + 1), p1.moves[i].name);
 
 		// P2
 		result = damageResults[1][i];
@@ -72,6 +73,7 @@ function performCalculations() {
 		});
 		$(resultLocations[1][i].move + " + label").text(p2.moves[i].name.replace("Hidden Power", "HP"));
 		$(resultLocations[1][i].damage).text(result.moveDesc(notation));
+		updateMoveInfoLink("moveInfoR" + (i + 1), p2.moves[i].name);
 
 		// BOTH
 		var bestMove;
