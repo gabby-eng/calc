@@ -444,7 +444,21 @@ $(".move-selector").change(function () {
 		moveGroupObj.children(".stat-drops").hide();
 	}
 	moveGroupObj.children(".move-z").prop("checked", false);
+	updateMoveInfoLink(this);
 });
+
+function updateMoveInfoLink(moveSelect) {
+	var $link = $(moveSelect).siblings(".move-info-link");
+	if (!$link.length) return;
+	var moveName = $(moveSelect).val();
+	var description = typeof getMoveDescription === "function" ? getMoveDescription(moveName) : null;
+	if (!description) {
+		$link.prop("hidden", true);
+		return;
+	}
+	$link.attr("title", description);
+	$link.prop("hidden", false);
+}
 
 $(".item").change(function () {
 	var itemName = $(this).val();
@@ -1127,6 +1141,7 @@ $(".gen").change(function () {
 	$("select.type2").find("option").remove().end().append("<option value=\"\">(none)</option>" + typeOptions);
 	var moveOptions = getSelectOptions(Object.keys(moves), true);
 	$("select.move-selector").find("option").remove().end().append(moveOptions);
+	$(".move-info-link").prop("hidden", true);
 	var abilityOptions = getSelectOptions(abilities, true);
 	$("select.ability").find("option").remove().end().append("<option value=\"\">(other)</option>" + abilityOptions);
 	$(".ability-info-link").prop("hidden", true);
