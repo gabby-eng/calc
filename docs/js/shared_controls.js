@@ -1584,11 +1584,6 @@ function HideShowCCSettings(){
 }
 
 function colorCodeUpdate(){
-	var speCheck = document.getElementById("cc-spe-border").checked;
-	var ohkoCheck = document.getElementById("cc-ohko-color").checked;
-	if (!speCheck && !ohkoCheck){
-		return
-	}
 	var pMons = document.getElementsByClassName("trainer-pok left-side");
 	// i calc here to alleviate some calculation
 	var p2info = $("#p2");
@@ -1596,18 +1591,8 @@ function colorCodeUpdate(){
 	for (let i = 0; i < pMons.length; i++) {
 		let set = pMons[i].getAttribute("data-id");
 		let idColor = calculationsColors(set, p2);
-		let fastOhko = idColor.speed === "F" && idColor.code === "1" ? " mon-highlight-fast-ohko" : "";
-		if (speCheck && ohkoCheck){
-			pMons[i].className = `trainer-pok left-side mon-speed-${idColor.speed} mon-dmg-${idColor.code}${fastOhko}`;
-		}
-		else if (speCheck){
-			pMons[i].className = `trainer-pok left-side mon-speed-${idColor.speed}${fastOhko}`;
-		}
-		else if (ohkoCheck){
-			pMons[i].className = `trainer-pok left-side mon-dmg-${idColor.code}${fastOhko}`;
-		}
-
-
+		let fastOhko = idColor.speed === "F" && idColor.code === "1";
+		pMons[i].className = fastOhko ? "trainer-pok left-side mon-highlight-fast-ohko" : "trainer-pok left-side";
 	}
 }
 function showColorCodes(){
@@ -1700,31 +1685,6 @@ function handleDragLeave(ev) {
 	ev.target.classList.remove('over');
 }
 
-function SpeedBorderSetsChange(ev){
-	var monImgs = document.getElementsByClassName("left-side");
-	if (ev.target.checked){
-		for (let monImg of monImgs){
-			monImg.classList.remove("mon-speed-none")
-		}
-	}else{
-		for (let monImg of monImgs){
-			monImg.classList.add("mon-speed-none")
-		}
-	}
-}
-
-function ColorCodeSetsChange(ev){
-	var monImgs = document.getElementsByClassName("left-side");
-	if (ev.target.checked){
-		for (let monImg of monImgs){
-			monImg.classList.remove("mon-dmg-none")
-		}
-	}else{
-		for (let monImg of monImgs){
-			monImg.classList.add("mon-dmg-none")
-		}
-	}
-}
 function setupSideCollapsers(){
 	var applyF = (btns) => {
 		for (var i = 0; i < btns.length; i++) {
@@ -1855,10 +1815,6 @@ $(document).ready(function () {
 	$('#refr-cc').click(refreshColorCode);
 	$('#info-cc').click(toggleInfoColorCode);
 	$('#trash-pok').click(TrashPokemon);
-	$('#cc-spe-border').change(SpeedBorderSetsChange);
-	$('#cc-ohko-color').change(ColorCodeSetsChange);
-	$('#cc-spe-border')[0].checked=true;
-	$('#cc-ohko-color')[0].checked=true;
 	$('#singles-format').click(switchIconDouble);
 	$('#doubles-format').click(switchIconSingle);
 	for (let dropzone of document.getElementsByClassName("dropzone")){
