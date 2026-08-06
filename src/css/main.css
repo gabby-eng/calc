@@ -611,6 +611,17 @@ table.field {
     background: linear-gradient(to right, #daff08 50%, #dd0b0b 0%);
 }
 
+.mon-highlight-fast-ohko{
+    /* Outspeeds the opponent and always OHKOes it */
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: solid;
+    border-width: 3px !important;
+    border-color: #17c40c !important;
+    border-radius: 20%;
+}
+
 .box-poke{
     min-height: 30px;
 }

@@ -1596,17 +1596,18 @@ function colorCodeUpdate(){
 	for (let i = 0; i < pMons.length; i++) {
 		let set = pMons[i].getAttribute("data-id");
 		let idColor = calculationsColors(set, p2);
+		let fastOhko = idColor.speed === "F" && idColor.code === "1" ? " mon-highlight-fast-ohko" : "";
 		if (speCheck && ohkoCheck){
-			pMons[i].className = `trainer-pok left-side mon-speed-${idColor.speed} mon-dmg-${idColor.code}`;
+			pMons[i].className = `trainer-pok left-side mon-speed-${idColor.speed} mon-dmg-${idColor.code}${fastOhko}`;
 		}
 		else if (speCheck){
-			pMons[i].className = `trainer-pok left-side mon-speed-${idColor.speed}`;
+			pMons[i].className = `trainer-pok left-side mon-speed-${idColor.speed}${fastOhko}`;
 		}
 		else if (ohkoCheck){
-			pMons[i].className = `trainer-pok left-side mon-dmg-${idColor.code}`;
+			pMons[i].className = `trainer-pok left-side mon-dmg-${idColor.code}${fastOhko}`;
 		}
-		
-		
+
+
 	}
 }
 function showColorCodes(){
